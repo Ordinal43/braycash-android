@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "588724898896",
+    "firebase_url": "https://braycash-c545d.firebaseio.com",
+    "project_id": "braycash-c545d",
+    "storage_bucket": "braycash-c545d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588724898896:android:683cdb93478cd38b",
+        "android_client_info": {
+          "package_name": "id.ac.ukdw.braycash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588724898896-qj152i6vgdbff6k0f8jhv33ffvgserk2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.ac.ukdw.braycash",
+            "certificate_hash": "cd8d992a5cb95e4e9d6606822ec2273fda5dd7b8"
+          }
+        },
+        {
+          "client_id": "588724898896-khuvksalqthkqr9ksrj0d5uhftgo2qi9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDx87rLl3kT80Wh5bRdvYs4fqjyCR84EG8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588724898896-khuvksalqthkqr9ksrj0d5uhftgo2qi9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

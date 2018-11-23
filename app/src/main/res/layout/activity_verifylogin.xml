@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="55dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:textSize="30sp"
+            android:text="Enter the verification code sent to your number"
+            android:textAlignment="center"/>
+
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberPassword"
+            android:maxLength="5"
+            android:textAlignment="center"
+            android:id="@+id/input_otp"/>
+
+
+        <android.support.v7.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:text="VERIFY"
+            android:id="@+id/btnVerify"
+            android:padding="12dp"
+            android:background="@drawable/white_rounded_button"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="Didn't receive any code?"
+            android:textSize="16dp"
+            android:textColor="@color/primary_dark"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:text="Resend"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:id="@+id/resend_otp"
+            android:textColor="@color/primary_dark"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <ProgressBar
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/progressBar"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

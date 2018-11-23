@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/txtNomor_Tujuan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kepada"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/txtTanggal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="tanggal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Rp"
+            android:layout_marginEnd="5dp"
+            android:textColor="@color/primary"/>
+
+        <TextView
+            android:id="@+id/txtNominal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/primary"
+            android:text="Nominal" />
+
+    </LinearLayout>
+
+</LinearLayout>

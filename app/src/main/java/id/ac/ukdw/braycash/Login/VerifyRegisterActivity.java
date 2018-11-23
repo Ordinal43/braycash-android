@@ -13,6 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.PhoneAuthProvider;
+
 import id.ac.ukdw.braycash.Home.HomeActivity;
 import id.ac.ukdw.braycash.R;
 
@@ -25,8 +27,11 @@ public class VerifyRegisterActivity extends AppCompatActivity {
     private TextView resendOTP;
     private ProgressBar mProgressBar;
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verifyregister);
         Log.d(TAG, "onCreate: VerifyLoginActivity start");

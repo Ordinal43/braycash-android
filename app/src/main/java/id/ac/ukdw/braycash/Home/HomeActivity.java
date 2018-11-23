@@ -61,7 +61,7 @@ public class HomeActivity extends AppCompatActivity {
             /**
              * returns the user to login page
              */
-            //startActivity(intent);
+            startActivity(intent);
         }
     }
 

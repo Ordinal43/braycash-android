@@ -13,43 +13,39 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseException;
+import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.concurrent.TimeUnit;
+
+import id.ac.ukdw.braycash.Home.HomeActivity;
 import id.ac.ukdw.braycash.R;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
 
-    private FirebaseAuth mAuth;
-
     private Context mContext;
     private ProgressBar mProgressBar;
     private EditText mPhone;
-
+    private Button btnLogin;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        // set firebase auth object
-        mAuth = FirebaseAuth.getInstance();
 
         mContext = LoginActivity.this;
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mPhone = (EditText) findViewById(R.id.input_phone);
 
         mProgressBar.setVisibility(View.GONE);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
 
         init();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        Log.d(TAG, "onStart: setup firebase auth");
-        FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
     // ======================================== firebase ========================================
@@ -63,20 +59,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void init() {
-        Button btnLogin = (Button) findViewById(R.id.btnLogin);
+
+        mPhone.requestFocus();
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phone = mPhone.getText().toString();
+                String phoneNumber = mPhone.getText().toString();
 
-                if(isStringNull(phone)) {
+
+                if(isStringNull(phoneNumber)) {
                     Toast.makeText(mContext, "You must enter a registered phone number.", Toast.LENGTH_SHORT).show();
                 } else {
-                    //mProgressBar.setVisibility(View.VISIBLE);
                     Intent intent = new Intent(mContext, VerifyLoginActivity.class);
+                    intent.putExtra("PHONE_NUMBER", phoneNumber);
                     startActivity(intent);
-
                 }
+
             }
         });
 
@@ -84,9 +82,11 @@ public class LoginActivity extends AppCompatActivity {
         linkSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(mContext, RegisterActivity.class);
                 startActivity(intent);
             }
         });
     }
+
 }

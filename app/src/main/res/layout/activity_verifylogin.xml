@@ -26,7 +26,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:inputType="numberPassword"
-            android:maxLength="5"
+            android:maxLength="6"
             android:textAlignment="center"
             android:id="@+id/input_otp"/>
 

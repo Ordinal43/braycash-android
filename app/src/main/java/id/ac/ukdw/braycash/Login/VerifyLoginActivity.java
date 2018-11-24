@@ -53,9 +53,6 @@ public class VerifyLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_verifylogin);
         Log.d(TAG, "onCreate: VerifyLoginActivity start");
 
-        // set firebase auth object
-        mAuth = FirebaseAuth.getInstance();
-
         initWidgets();
 
         sendVerificationCode();
@@ -66,7 +63,7 @@ public class VerifyLoginActivity extends AppCompatActivity {
                 String textOTP = inputOTP.getText().toString();
 
                 if(textOTP.equals("")){
-                    Toast.makeText(mContext, "Please input a code", Toast.LENGTH_SHORT);
+                    Toast.makeText(mContext, "Please input a code", Toast.LENGTH_SHORT).show();
                 } else {
                     verifySignIn(textOTP);
                 }
@@ -76,17 +73,9 @@ public class VerifyLoginActivity extends AppCompatActivity {
         resendOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Verification code resend", Toast.LENGTH_SHORT);
+                Toast.makeText(mContext, "Verification code resend", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        Log.d(TAG, "onStart: setup firebase auth");
-        FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
     // ======================================= SIGN IN =====================================
@@ -108,6 +97,7 @@ public class VerifyLoginActivity extends AppCompatActivity {
                                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
+
                                             Intent intent = new Intent(mContext, HomeActivity.class);
 
                                             // Erase all previous intents
@@ -127,14 +117,17 @@ public class VerifyLoginActivity extends AppCompatActivity {
 
 
     private void initWidgets() {
+        // set firebase auth object
+        mAuth = FirebaseAuth.getInstance();
+
         mContext = VerifyLoginActivity.this;
         inputOTP = (EditText) findViewById(R.id.input_otp);
         btnVerify = (Button) findViewById(R.id.btnVerify);
         resendOTP = (TextView) findViewById(R.id.resend_otp);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        mProgressBar.setVisibility(View.GONE);
         phoneNumber = getIntent().getStringExtra("PHONE_NUMBER");
+        mProgressBar.setVisibility(View.GONE);
 
     }
 

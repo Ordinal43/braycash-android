@@ -16,6 +16,7 @@ public class ElektronikAdapter extends RecyclerView.Adapter<ElektronikAdapter.El
 
     private List<Elektronik> listElektronik;
     private Context mContext;
+    private String cobaaaaaa;
 
     public ElektronikAdapter(List<Elektronik> listElektronik, Context mContext) {
         this.listElektronik = listElektronik;

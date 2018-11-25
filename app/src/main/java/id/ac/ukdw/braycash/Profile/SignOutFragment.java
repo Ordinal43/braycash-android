@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import id.ac.ukdw.braycash.Home.HomeActivity;
 import id.ac.ukdw.braycash.R;
+import id.ac.ukdw.braycash.Utils.SplashActivity;
 
 public class SignOutFragment extends Fragment {
 
@@ -22,7 +22,7 @@ public class SignOutFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sign_out, container, false);
         FirebaseAuth.getInstance().signOut();
 
-        Intent intent = new Intent(this.getContext(), HomeActivity.class);
+        Intent intent = new Intent(this.getContext(), SplashActivity.class);
 
         // Erase all previous intents
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

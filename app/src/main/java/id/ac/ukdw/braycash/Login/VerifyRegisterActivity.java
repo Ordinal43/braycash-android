@@ -22,17 +22,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.TimeUnit;
 
 import id.ac.ukdw.braycash.Home.HomeActivity;
 import id.ac.ukdw.braycash.R;
-import id.ac.ukdw.braycash.Utils.User;
+import id.ac.ukdw.braycash.Database.User;
 
 public class VerifyRegisterActivity extends AppCompatActivity {
     private static final String TAG = "VerifyLoginActivity";
@@ -135,7 +132,8 @@ public class VerifyRegisterActivity extends AppCompatActivity {
                                             // add new user data to the database
                                             String uid = mAuth.getUid();
 
-                                            User newUser = new User(name, phoneNumber, 0);
+
+                                            User newUser = new User(name, phoneNumber, new Long(0));
 
                                             userRef.child(uid).setValue(newUser);
 

@@ -67,17 +67,17 @@
                             android:id="@+id/displayName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Bryan Ramaputra"
+                            android:text="..."
                             android:textColor="@color/primary"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/description"
+                            android:id="@+id/phone_number"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="087838766032"
+                            android:text="..."
                             android:textColor="@color/black"
                             android:textSize="16sp" />
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="id.ac.ukdw.braycash">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -17,13 +18,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:hardwareAccelerated="true">
-        <activity android:name=".Home.HomeActivity">
+        <activity android:name=".Home.HomeActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".Login.LoginActivity"></activity>
         <activity android:name=".Login.VerifyLoginActivity"></activity>
         <activity android:name=".Login.RegisterActivity"></activity>
@@ -32,8 +36,7 @@
         <activity android:name=".Home.TransferActivity"></activity>
         <activity android:name=".Home.ConfirmTransferActivity"></activity>
         <activity android:name=".Home.TopupActivity"></activity>
-        <activity android:name=".Home.ScanActivity"></activity>
-        <activity android:name=".Home.ScanPaymentActivity"></activity>
+        <activity android:name=".Home.PaymentActivity"></activity>
 
         <activity android:name=".Home.TransactionSuccessActivity"></activity>
 

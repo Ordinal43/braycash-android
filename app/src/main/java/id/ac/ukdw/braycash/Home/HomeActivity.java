@@ -42,9 +42,11 @@ public class HomeActivity extends AppCompatActivity {
         // set firebase auth object
         mAuth = FirebaseAuth.getInstance();
 
-        initImageLoader();
-        setupBottomNavigationView();
-        setupViewPager();
+        if(mAuth.getCurrentUser() != null) {
+            initImageLoader();
+            setupBottomNavigationView();
+            setupViewPager();
+        }
     }
 
     @Override

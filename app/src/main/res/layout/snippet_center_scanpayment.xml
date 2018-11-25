@@ -15,7 +15,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Recipient number"
+                android:text="Recipient"
                 android:textSize="18dp"
                 android:layout_marginStart="5dp"
                 android:textColor="@color/primary"/>
@@ -24,10 +24,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:id="@+id/phone_number"
+                android:id="@+id/recipientName"
                 android:textSize="30sp"
                 android:layout_marginStart="5dp"
-                android:text="08123812381"/>
+                android:text="..."
+                android:paddingBottom="5dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="08123812381"
+                android:id="@+id/recipientPhone"
+                android:textSize="18dp"
+                android:layout_marginStart="5dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -41,25 +50,60 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Rp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:textSize="20sp"/>
-
-                <EditText
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/transferAmount"
-                    android:inputType="number"
-                    android:textSize="30sp"
-                    android:hint="0"/>
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:textSize="20sp"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/transferAmount"
+                        android:inputType="number"
+                        android:textSize="30sp"
+                        android:hint="0"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your balance: "
+                        android:layout_marginStart="5dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/primary"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/currentSaldo"
+                        android:layout_marginEnd="5dp"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:text="..."
+                        android:textColor="@color/primary"/>
+
+
+                </LinearLayout>
+
 
             </LinearLayout>
 

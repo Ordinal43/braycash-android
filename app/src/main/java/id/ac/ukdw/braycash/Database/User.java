@@ -1,15 +1,15 @@
-package id.ac.ukdw.braycash.Utils;
+package id.ac.ukdw.braycash.Database;
 
 public class User {
     private String name;
     private String phone;
-    private int saldo;
+    private Long saldo;
 
     public User() {
 
     }
 
-    public User(String name, String phone, int saldo) {
+    public User(String name, String phone, Long saldo) {
         this.name = name;
         this.phone = phone;
         this.saldo = saldo;
@@ -31,11 +31,11 @@ public class User {
         this.phone = phone;
     }
 
-    public int getSaldo() {
+    public Long getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(int saldo) {
+    public void setSaldo(Long saldo) {
         this.saldo = saldo;
     }
 }

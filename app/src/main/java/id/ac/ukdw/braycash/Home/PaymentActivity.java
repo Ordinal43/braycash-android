@@ -180,7 +180,6 @@ public class PaymentActivity extends AppCompatActivity {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         recipientId = dataSnapshot.getKey();
-                        recipientPhone = dataSnapshot.child("phone").getValue().toString();
                         recipientSaldo = Long.valueOf(dataSnapshot.child("saldo").getValue().toString());
 
                         String name = dataSnapshot.child("name").getValue().toString();
@@ -190,7 +189,6 @@ public class PaymentActivity extends AppCompatActivity {
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         recipientId = dataSnapshot.getKey();
-                        recipientPhone = dataSnapshot.child("phone").getValue().toString();
                         recipientSaldo = Long.valueOf(dataSnapshot.child("saldo").getValue().toString());
 
                         String name = dataSnapshot.child("name").getValue().toString();

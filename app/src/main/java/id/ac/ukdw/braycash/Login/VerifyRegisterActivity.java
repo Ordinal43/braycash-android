@@ -170,7 +170,7 @@ public class VerifyRegisterActivity extends AppCompatActivity {
 
         @Override
         public void onVerificationCompleted(PhoneAuthCredential credential) {
-            Toast.makeText(mContext, "Phone already verified", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Phone registered!", Toast.LENGTH_SHORT).show();
             signInWithPhoneAuthCredential(credential);
         }
 

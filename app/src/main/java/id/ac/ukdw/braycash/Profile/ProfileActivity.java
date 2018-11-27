@@ -37,7 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Context mContext = ProfileActivity.this;
     private static final int ACTTIVITY_NUM = 3;
 
-    private ImageView profilePhoto, myQRCode, myBarCode, backBtn;
+    private ImageView profilePhoto, myQRCode, backBtn;
     private TextView phoneNumber;
     private TextView displayName;
     private ProgressBar mProgressBar;
@@ -55,7 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         setupToolbar();
         setupActivityWidgets();
-        setImages();
+        setBarcode();
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +81,10 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d(TAG, "onDataChange: " + dataSnapshot);
                 String name = dataSnapshot.child("name").getValue().toString();
+                String profileImgURL = dataSnapshot.child("profilePhoto").getValue().toString();
+
                 displayName.setText(name);
+                UniversalImageLoader.setImage(profileImgURL, profilePhoto, mProgressBar, "");
             }
 
             @Override
@@ -103,8 +106,7 @@ public class ProfileActivity extends AppCompatActivity {
     /**
      * Set up static profile image
      */
-    private void setImages() {
-        String profileImgURL = "pm1.narvii.com/6767/b7b73269eba2d87cad4d1d8b44946561a096782av2_hq.jpg";
+    private void setBarcode() {
 
         try {
             String myPhoneNumber = mAuth.getCurrentUser().getPhoneNumber();
@@ -114,8 +116,6 @@ public class ProfileActivity extends AppCompatActivity {
         } catch(Exception e) {
             Toast.makeText(mContext, "Something went wrong. Please try again", Toast.LENGTH_LONG).show();
         }
-
-        UniversalImageLoader.setImage(profileImgURL, profilePhoto, mProgressBar, "https://");
     }
 
     private void setupToolbar() {

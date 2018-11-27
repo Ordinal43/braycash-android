@@ -133,7 +133,7 @@ public class VerifyRegisterActivity extends AppCompatActivity {
                                             String uid = mAuth.getUid();
 
 
-                                            User newUser = new User(name, phoneNumber, new Long(0));
+                                            User newUser = new User(name, phoneNumber, new Long(0), "https://ssl.gstatic.com/images/branding/product/1x/avatar_square_grey_512dp.png");
 
                                             userRef.child(uid).setValue(newUser);
 

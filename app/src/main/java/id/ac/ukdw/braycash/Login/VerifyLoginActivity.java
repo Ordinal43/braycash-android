@@ -55,6 +55,8 @@ public class VerifyLoginActivity extends AppCompatActivity {
 
         initWidgets();
 
+        mProgressBar.setVisibility(View.VISIBLE);
+
         sendVerificationCode();
 
         btnVerify.setOnClickListener(new View.OnClickListener() {
@@ -148,7 +150,6 @@ public class VerifyLoginActivity extends AppCompatActivity {
 
         @Override
         public void onVerificationCompleted(PhoneAuthCredential credential) {
-            Toast.makeText(mContext, "Phone already verified", Toast.LENGTH_SHORT).show();
             signInWithPhoneAuthCredential(credential);
         }
 
@@ -164,6 +165,8 @@ public class VerifyLoginActivity extends AppCompatActivity {
             super.onCodeSent(verificationId, token);
             mVerificationId = verificationId;
             mResendToken = token;
+
+            mProgressBar.setVisibility(View.GONE);
         }
     };
 }

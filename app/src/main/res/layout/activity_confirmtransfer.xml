@@ -38,7 +38,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Recipient number"
+                        android:text="Recipient name"
                         android:textSize="18dp"
                         android:layout_marginStart="5dp"
                         android:textColor="@color/primary"/>
@@ -47,10 +47,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:id="@+id/confirm_phone_number"
+                        android:id="@+id/confirm_name"
                         android:textSize="30sp"
                         android:paddingStart="5dp"
-                        android:text="08XX-XXXX"/>
+                        android:text="..."/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="..."
+                        android:id="@+id/confirm_phone_number"
+                        android:textSize="18dp"
+                        android:layout_marginStart="5dp"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -81,7 +89,7 @@
                             android:layout_centerVertical="true"
                             android:id="@+id/confirmTransferAmount"
                             android:textSize="30sp"
-                            android:text="50000"/>
+                            android:text="..."/>
 
                     </LinearLayout>
 

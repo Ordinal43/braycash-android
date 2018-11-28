@@ -165,9 +165,19 @@ public class VerifyRegisterActivity extends AppCompatActivity {
 
     }
 
+    private void resendVerificationCode() {
+        Log.d(TAG, "sendVerificationCode: " + phoneNumber);
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phoneNumber,        // Phone number to verify
+                30,              // Timeout duration
+                TimeUnit.SECONDS,   // Unit of timeout
+                this,        // Activity (for callback binding)
+                mCallbacks,         // OnVerificationStateChangedCallbacks
+                mResendToken);      // ForceResendingToken from callbacks
+    }
+
     // init function for verifying login
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
         @Override
         public void onVerificationCompleted(PhoneAuthCredential credential) {
             Toast.makeText(mContext, "Phone registered!", Toast.LENGTH_SHORT).show();
@@ -177,7 +187,6 @@ public class VerifyRegisterActivity extends AppCompatActivity {
         @Override
         public void onVerificationFailed(FirebaseException e) {
             Toast.makeText(mContext, "Invalid phone number", Toast.LENGTH_SHORT).show();
-            finish();
         }
 
         @Override

@@ -135,14 +135,22 @@ public class VerifyLoginActivity extends AppCompatActivity {
 
     // ================================ SENDING SMS ===========================
     private void sendVerificationCode(){
-
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,        // Phone number to verify
                 30,              // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,        // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallback
+    }
 
+    private void resendVerificationCode() {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phoneNumber,        // Phone number to verify
+                30,              // Timeout duration
+                TimeUnit.SECONDS,   // Unit of timeout
+                this,        // Activity (for callback binding)
+                mCallbacks,         // OnVerificationStateChangedCallbacks
+                mResendToken);      // ForceResendingToken from callbacks
     }
 
     // init function for verifying login

@@ -102,7 +102,7 @@ public class HomeFragment extends Fragment {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null) {
             if(result.getContents() == null) {
-                Toast.makeText(mContext, "Cancelled", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "Cancelled", Toast.LENGTH_SHORT).show();
             } else {
 
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -110,7 +110,7 @@ public class HomeFragment extends Fragment {
                 String recipientNumber = result.getContents();
 
                 if(recipientNumber.equals(myNumber)) {
-                    Toast.makeText(mContext, "You cannot make payment to your own account", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "You cannot make a payment to your own account", Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent = new Intent(mContext, PaymentActivity.class);
                     intent.putExtra("RECIPIENT_PHONE", recipientNumber);

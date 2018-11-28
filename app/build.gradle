@@ -49,6 +49,9 @@ dependencies {
     //zxing barcode scanner
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
     implementation 'com.google.zxing:core:3.3.0'
+
+    //pin
+    implementation 'com.github.thealeksandr:PFLockScreen-Android:1.0.0-beta3'
 }
 
 apply plugin: 'com.google.gms.google-services'

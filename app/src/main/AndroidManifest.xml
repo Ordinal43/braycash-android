@@ -52,6 +52,7 @@
         <activity android:name=".Notif.NotifActivity"></activity>
         <activity android:name=".Profile.ProfileActivity"></activity>
         <activity android:name=".Profile.AccountSettingsActivity"></activity>
+
         <activity android:name=".History.HistoryActivity"></activity>
 
     </application>

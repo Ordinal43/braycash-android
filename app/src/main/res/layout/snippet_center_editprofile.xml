@@ -30,14 +30,38 @@
                 style="@style/Base.Widget.AppCompat.Button.Colored"
                 android:layout_centerHorizontal="true"/>
 
+            <!-- Phone number section -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/relLayout1"
+                android:layout_below="@id/change_profile_photo"
+                android:layout_marginTop="40dp">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_phone"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="40dp"
+                    android:id="@+id/phone_number"
+                    android:textSize="20sp"/>
+
+
+            </RelativeLayout>
 
             <!-- Display section -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@id/change_profile_photo"
-                android:id="@+id/relLayout1"
-                android:layout_marginTop="40dp">
+                android:layout_below="@id/relLayout1"
+                android:id="@+id/relLayout2"
+                android:layout_marginTop="15dp">
 
                 <ImageView
                     android:layout_width="25dp"
@@ -53,32 +77,6 @@
                     android:id="@+id/display_name"
                     android:inputType="textPersonName"
                     android:hint="Display name"/>
-
-
-            </RelativeLayout>
-
-            <!-- Phone number section -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@id/relLayout1"
-                android:id="@+id/relLayout2"
-                android:layout_marginTop="15dp">
-
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/ic_phone"
-                    android:layout_centerVertical="true"/>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="40dp"
-                    android:id="@+id/phone_number"
-                    android:inputType="phone"
-                    android:hint="Phone number"/>
 
 
             </RelativeLayout>

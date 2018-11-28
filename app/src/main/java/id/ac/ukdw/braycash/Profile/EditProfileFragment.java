@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,7 +46,8 @@ public class EditProfileFragment extends Fragment {
     private ImageView mProfilePhoto;
     private Button changePhoto;
     private EditText editName;
-    private EditText editPhone;
+    private TextView editPhone;
+    private ProgressBar mProgressBar;
 
     String profileImgURL;
     Uri imgUri;
@@ -67,7 +69,10 @@ public class EditProfileFragment extends Fragment {
         mProfilePhoto = (ImageView) view.findViewById(R.id.profile_photo);
         changePhoto = (Button) view.findViewById(R.id.change_profile_photo);
         editName = (EditText) view.findViewById(R.id.display_name);
-        editPhone = (EditText) view.findViewById(R.id.phone_number);
+        editPhone = (TextView) view.findViewById(R.id.phone_number);
+        mProgressBar = (ProgressBar) view.findViewById(R.id.profileProgressBar);
+        mProgressBar.setVisibility(View.GONE);
+
         isImgSet = false;
 
         mAuth = FirebaseAuth.getInstance();
@@ -149,30 +154,24 @@ public class EditProfileFragment extends Fragment {
         if(name.equals("") || phone.equals("")) {
             Toast.makeText(mContext, "All fields must not be empty!", Toast.LENGTH_SHORT).show();
         } else {
-            String newName = editName.getText().toString();
-            String newPhone = editPhone.getText().toString();
 
-            if(!newName.equals(name)) {
-                userRef.child("name").setValue(newName);
-            }
-
-            if(!newPhone.equals(phone)) {
-//                userRef.child("phone").setValue(newPhone);
-            }
+            mProgressBar.setVisibility(View.VISIBLE);
 
             if(isImgSet) {
                 Toast.makeText(mContext, "Saving...", Toast.LENGTH_SHORT).show();
 
                 StorageReference ref = FirebaseStorage.getInstance().getReference();
-                ref.child(mAuth.getUid()).putFile(imgUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                ref.child(mAuth.getUid()).putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         StorageReference newRef = FirebaseStorage.getInstance().getReference();
                         newRef.child(mAuth.getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
+
                                 userRef.child("profilePhoto").setValue(uri.toString());
-                                getActivity().finish();
+                                saveName();
+
                             }
                         });
                     }
@@ -180,9 +179,21 @@ public class EditProfileFragment extends Fragment {
             } else {
                 getActivity().finish();
             }
-
-
         }
 
+    }
+
+    private void saveName() {
+        String newName = editName.getText().toString();
+
+        if(!newName.equals(name)) {
+
+            userRef.child("name").setValue(newName).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    getActivity().finish();
+                }
+            });
+        }
     }
 }

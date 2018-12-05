@@ -24,6 +24,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import id.ac.ukdw.braycash.Listrik.ListrikFragment;
 import id.ac.ukdw.braycash.Login.LoginActivity;
+import id.ac.ukdw.braycash.Login.LoginPinActivity;
 import id.ac.ukdw.braycash.Login.SetPinActivity;
 import id.ac.ukdw.braycash.R;
 import id.ac.ukdw.braycash.Utils.BottomNavigationViewHelper;
@@ -36,6 +37,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private Context mContext = HomeActivity.this;
     private static final int ACTTIVITY_NUM = 0;
+
+    private String pinConfirmed;
 
     // firebase auth object
     private FirebaseAuth mAuth;
@@ -54,6 +57,9 @@ public class HomeActivity extends AppCompatActivity {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference("users");
 
+        // try to get pinconfirmed from LoginPinActivity
+        pinConfirmed = getIntent().getStringExtra("PIN_CONFIRMED");
+
         if(mAuth.getCurrentUser() != null) {
             initImageLoader();
             setupBottomNavigationView();
@@ -66,16 +72,12 @@ public class HomeActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        Log.d(TAG, "onStart: setup firebase auth");
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if(currentUser == null) {
             // user is not signed in
-            Log.d(TAG, "onStart: CURRENT USER NULL");
             Intent intent = new Intent(mContext, LoginActivity.class);
-            /**
-             * returns the user to login page
-             */
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         } else {
             DatabaseReference pinRef = mFirebaseDatabase
@@ -96,12 +98,15 @@ public class HomeActivity extends AppCompatActivity {
 
                 }
             });
+
+            if(pinConfirmed == null ) {
+                Intent intent = new Intent(mContext, LoginPinActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
         }
     }
 
-    /**
-     * TEMPORARY STATIC METHOD FOR DISPLAYING IMAGES
-     */
     private void initImageLoader() {
         UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
         ImageLoader.getInstance().init(universalImageLoader.getConfig());

@@ -29,8 +29,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.concurrent.TimeUnit;
 
 import id.ac.ukdw.braycash.Home.HomeActivity;
+import id.ac.ukdw.braycash.Model.User;
 import id.ac.ukdw.braycash.R;
-import id.ac.ukdw.braycash.Database.User;
 
 public class VerifyRegisterActivity extends AppCompatActivity {
     private static final String TAG = "VerifyLoginActivity";
@@ -125,7 +125,7 @@ public class VerifyRegisterActivity extends AppCompatActivity {
                             String uid = mAuth.getUid();
 
 
-                            User newUser = new User(name, phoneNumber, new Long(0), "https://ssl.gstatic.com/images/branding/product/1x/avatar_square_grey_512dp.png");
+                            User newUser = new User(name, phoneNumber, "",new Long(0), "https://ssl.gstatic.com/images/branding/product/1x/avatar_square_grey_512dp.png");
 
                             userRef.child(uid).setValue(newUser).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

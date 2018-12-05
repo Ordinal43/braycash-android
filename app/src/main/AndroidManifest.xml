@@ -41,6 +41,7 @@
         <activity android:name=".Login.VerifyLoginActivity"></activity>
         <activity android:name=".Login.RegisterActivity"></activity>
         <activity android:name=".Login.VerifyRegisterActivity"></activity>
+        <activity android:name=".Login.SetPinActivity"></activity>
 
         <activity android:name=".Home.TransferActivity"></activity>
         <activity android:name=".Home.ConfirmTransferActivity"></activity>

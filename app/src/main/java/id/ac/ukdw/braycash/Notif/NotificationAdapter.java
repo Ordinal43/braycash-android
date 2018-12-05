@@ -35,7 +35,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void onBindViewHolder(@NonNull NotifHolder notifHolder, int i) {
         Notification notification = listNotification.get(i);
         notifHolder.txtTanggal.setText(notification.tanggal);
-        notifHolder.txtNomorSumber.setText(notification.nomor_tujuan);
+        notifHolder.txtNomorSumber.setText(notification.sumber);
         notifHolder.txtNominal.setText(notification.nominal);
     }
 

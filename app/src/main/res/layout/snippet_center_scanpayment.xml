@@ -33,7 +33,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="08123812381"
+                android:text="..."
                 android:id="@+id/recipientPhone"
                 android:textSize="18dp"
                 android:layout_marginStart="5dp"/>

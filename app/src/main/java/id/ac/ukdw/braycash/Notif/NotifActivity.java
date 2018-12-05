@@ -2,6 +2,8 @@ package id.ac.ukdw.braycash.Notif;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,10 +11,19 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import id.ac.ukdw.braycash.R;
@@ -26,43 +37,29 @@ public class NotifActivity extends AppCompatActivity {
     private NotificationAdapter notifAdapter;
     private static final int ACTTIVITY_NUM = 1;
 
+    // firebase stuff
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference myRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notif);
 
         mContext = NotifActivity.this;
+
+        initWidgets();
         setupBottomNavigationView();
-
-        // ============ set up recycler view ===============
-        rcyNotif = (RecyclerView) findViewById(R.id.rcyNotif);
-        List<Notification> listNotif = new ArrayList<Notification>();
-        notifAdapter = new NotificationAdapter(listNotif, mContext);
-
-        //menggabungkan antara recyclerView dengan riwayatAdapter
-        RecyclerView.LayoutManager lm = new LinearLayoutManager(mContext);
-        rcyNotif.setLayoutManager(lm);
-        rcyNotif.setItemAnimator(new DefaultItemAnimator());
-        rcyNotif.setAdapter(notifAdapter);
-
-        //membuat data dummy
-        listNotif.add(new Notification("12 November 2018", "087881810168", "50.000,00"));
-        listNotif.add(new Notification("11 November 2018", "087881810168", "50.000,00"));
-        listNotif.add(new Notification("10 November 2018", "087881810168", "50.000,00"));
-        listNotif.add(new Notification("9 November 2018", "087881810168", "50.000,00"));
-        listNotif.add(new Notification("8 November 2018", "087881810168", "50.000,00"));
-        listNotif.add(new Notification("7 November 2018", "087881810168", "50.000,00"));
-        listNotif.add(new Notification("6 November 2018", "087881810168", "50.000,00"));
-        listNotif.add(new Notification("5 November 2018", "087881810168", "50.000,00"));
-        listNotif.add(new Notification("4 November 2018", "087881810168", "50.000,00"));
-        listNotif.add(new Notification("3 November 2018", "087881810168", "50.000,00"));
-
-
-        //untuk mengupdate tampilan
-        notifAdapter.notifyDataSetChanged();
+        initRecycler();
     }
 
-//    BottomNavigationViewSetup
+    private void initWidgets() {
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference("users/" + mAuth.getUid());
+    }
+
     private void setupBottomNavigationView() {
         Log.d(TAG, "setupBottomNavigationView: setting up bottomNav");
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
@@ -74,4 +71,41 @@ public class NotifActivity extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(ACTTIVITY_NUM);
         menuItem.setChecked(true);
     }
+
+    private void initRecycler() {
+        // ============ set up recycler view ===============
+        rcyNotif = (RecyclerView) findViewById(R.id.rcyNotif);
+        final List<Notification> listNotif = new ArrayList<Notification>();
+        notifAdapter = new NotificationAdapter(listNotif, mContext);
+
+        // menggabungkan antara recyclerView dengan riwayatAdapter
+        RecyclerView.LayoutManager lm = new LinearLayoutManager(mContext);
+        rcyNotif.setLayoutManager(lm);
+        rcyNotif.setItemAnimator(new DefaultItemAnimator());
+        rcyNotif.setAdapter(notifAdapter);
+
+        myRef.child("received")
+                .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    String date = snapshot.child("date").getValue().toString();
+                    String phone = snapshot.child("phone").getValue().toString();
+                    String amount = snapshot.child("amount").getValue().toString();
+
+                    listNotif.add(new Notification(date, phone, amount));
+                }
+                Collections.reverse(listNotif);
+                notifAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
 }

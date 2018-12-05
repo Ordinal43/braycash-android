@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
@@ -28,8 +29,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.concurrent.TimeUnit;
 
 import id.ac.ukdw.braycash.Home.HomeActivity;
+import id.ac.ukdw.braycash.Model.User;
 import id.ac.ukdw.braycash.R;
-import id.ac.ukdw.braycash.Database.User;
 
 public class VerifyRegisterActivity extends AppCompatActivity {
     private static final String TAG = "VerifyLoginActivity";
@@ -79,10 +80,7 @@ public class VerifyRegisterActivity extends AppCompatActivity {
         resendOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(
-                        mContext,
-                        "Verification code resent",
-                        Toast.LENGTH_SHORT).show();
+                resendVerificationCode();
 
             }
         });
@@ -121,29 +119,23 @@ public class VerifyRegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            //signs the user in with the credentials
-                            mAuth.signInWithCredential(credential)
-                                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
-
-                                            // set the database root to the user
-                                            DatabaseReference userRef = mFirebaseDatabase.getReference("users");
-                                            // add new user data to the database
-                                            String uid = mAuth.getUid();
+                            // set the database root to the user
+                            DatabaseReference userRef = mFirebaseDatabase.getReference("users");
+                            // add new user data to the database
+                            String uid = mAuth.getUid();
 
 
-                                            User newUser = new User(name, phoneNumber, new Long(0));
+                            User newUser = new User(name, phoneNumber, "",new Long(0), "https://ssl.gstatic.com/images/branding/product/1x/avatar_square_grey_512dp.png");
 
-                                            userRef.child(uid).setValue(newUser);
+                            userRef.child(uid).setValue(newUser).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Intent intent = new Intent(mContext, HomeActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                }
+                            });
 
-                                            // JANGAN LUPA SET ON SUCCESS LISTENER PAS UPDATE DB
-                                            Intent intent = new Intent(mContext, HomeActivity.class);
-                                            // Erase all previous intents
-                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                            startActivity(intent);
-                                        }
-                                    });
                         } else {
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 Toast.makeText(mContext, "Code is incorrect", Toast.LENGTH_SHORT).show();
@@ -165,19 +157,28 @@ public class VerifyRegisterActivity extends AppCompatActivity {
 
     }
 
+    private void resendVerificationCode() {
+        Log.d(TAG, "sendVerificationCode: " + phoneNumber);
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phoneNumber,        // Phone number to verify
+                30,              // Timeout duration
+                TimeUnit.SECONDS,   // Unit of timeout
+                this,        // Activity (for callback binding)
+                mCallbacks,         // OnVerificationStateChangedCallbacks
+                mResendToken);      // ForceResendingToken from callbacks
+    }
+
     // init function for verifying login
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
         @Override
         public void onVerificationCompleted(PhoneAuthCredential credential) {
-            Toast.makeText(mContext, "Phone already verified", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Phone registered!", Toast.LENGTH_SHORT).show();
             signInWithPhoneAuthCredential(credential);
         }
 
         @Override
         public void onVerificationFailed(FirebaseException e) {
             Toast.makeText(mContext, "Invalid phone number", Toast.LENGTH_SHORT).show();
-            finish();
         }
 
         @Override

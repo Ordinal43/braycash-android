@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,13 +13,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.BarcodeFormat;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import id.ac.ukdw.braycash.Home.HomeActivity;
 import id.ac.ukdw.braycash.R;
 import id.ac.ukdw.braycash.Utils.BottomNavigationViewHelper;
 import id.ac.ukdw.braycash.Utils.UniversalImageLoader;
@@ -30,10 +38,15 @@ public class ProfileActivity extends AppCompatActivity {
     private Context mContext = ProfileActivity.this;
     private static final int ACTTIVITY_NUM = 3;
 
-    private ImageView profilePhoto, myQRCode, myBarCode, backBtn;
+    private ImageView profilePhoto, myQRCode, backBtn;
+    private TextView phoneNumber;
+    private TextView displayName;
     private ProgressBar mProgressBar;
 
+    // firebase stuff
     private FirebaseAuth mAuth;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference dbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +56,14 @@ public class ProfileActivity extends AppCompatActivity {
 
         setupToolbar();
         setupActivityWidgets();
-        setImages();
+        setBarcode();
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(mContext, HomeActivity.class);
+                intent.putExtra("PIN_CONFIRMED", "confirmed");
+                startActivity(intent);
             }
         });
     }
@@ -58,10 +73,33 @@ public class ProfileActivity extends AppCompatActivity {
      */
     private void setupActivityWidgets() {
         mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        dbRef = mFirebaseDatabase.getReference("users/" + mAuth.getUid());
+
+        displayName = (TextView) findViewById(R.id.displayName);
+        phoneNumber = (TextView) findViewById(R.id.phone_number);
+
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d(TAG, "onDataChange: " + dataSnapshot);
+                String name = dataSnapshot.child("name").getValue().toString();
+                String profileImgURL = dataSnapshot.child("profilePhoto").getValue().toString();
+
+                displayName.setText(name);
+                UniversalImageLoader.setImage(profileImgURL, profilePhoto, mProgressBar, "");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        phoneNumber.setText(mAuth.getCurrentUser().getPhoneNumber());
 
         mProgressBar = (ProgressBar) findViewById(R.id.profileProgressBar);
         mProgressBar.setVisibility(View.GONE);
-
 
         profilePhoto = (ImageView) findViewById(R.id.profile_photo);
         myQRCode = (ImageView) findViewById(R.id.myQRCode);
@@ -71,8 +109,7 @@ public class ProfileActivity extends AppCompatActivity {
     /**
      * Set up static profile image
      */
-    private void setImages() {
-        String profileImgURL = "pm1.narvii.com/6767/b7b73269eba2d87cad4d1d8b44946561a096782av2_hq.jpg";
+    private void setBarcode() {
 
         try {
             String myPhoneNumber = mAuth.getCurrentUser().getPhoneNumber();
@@ -82,8 +119,6 @@ public class ProfileActivity extends AppCompatActivity {
         } catch(Exception e) {
             Toast.makeText(mContext, "Something went wrong. Please try again", Toast.LENGTH_LONG).show();
         }
-
-        UniversalImageLoader.setImage(profileImgURL, profilePhoto, mProgressBar, "https://");
     }
 
     private void setupToolbar() {

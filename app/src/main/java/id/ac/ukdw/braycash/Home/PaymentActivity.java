@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,11 +20,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
-import id.ac.ukdw.braycash.Database.Transaction;
 import id.ac.ukdw.braycash.R;
 
 public class PaymentActivity extends AppCompatActivity {
@@ -85,69 +79,33 @@ public class PaymentActivity extends AppCompatActivity {
                 if(transferAmount < 5000) {
                     Toast.makeText(
                             mContext,
-                            "Minimum transaction is Rp 5000",
+                            "Minimum transaction is Rp 5.000",
                             Toast.LENGTH_SHORT).show();
                 } else if(mySaldo < transferAmount) {
                     Toast.makeText(
                             mContext,
                             "Not enough balance!",
                             Toast.LENGTH_SHORT).show();
+                } else if(transferAmount > 500000) {
+                    Toast.makeText(
+                            mContext,
+                            "Maximum transaction is Rp 500.000",
+                            Toast.LENGTH_SHORT).show();
                 } else {
 
-                    if(makePayment(transferAmount)) {
-                        finish();
-                        Intent intent = new Intent(mContext, TransactionSuccessActivity.class);
-                        startActivity(intent);
-                    }
+                    Intent intent = new Intent(mContext, ConfirmPinTransactionActivity.class);
+                    intent.putExtra("RECIPIENT_ID", recipientId);
+                    intent.putExtra("RECIPIENT_PHONE", recipientPhone);
+                    intent.putExtra("MY_SALDO", mySaldo.toString());
+                    intent.putExtra("RECIPIENT_SALDO", recipientSaldo.toString());
+                    intent.putExtra("TRANSFER_AMOUNT", transferAmount.toString());
+
+                    startActivity(intent);
 
                 }
 
             }
         });
-    }
-
-    private boolean makePayment(Long transferAmount) {
-        //set dateformat
-        DateFormat df = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
-        String dateString = df.format(Calendar.getInstance().getTime());
-
-        // find reference for current account
-        String uid = mAuth.getUid();
-        String myPhone = mAuth.getCurrentUser().getPhoneNumber();
-
-        /**
-         * get the reference to the current user and recipient
-         */
-        DatabaseReference paymentRef = mFirebaseDatabase
-                .getReference("users/" + uid);
-        DatabaseReference receivedRef = mFirebaseDatabase
-                .getReference("users/" + recipientId);
-
-        /**
-         * set the new balance for both users
-         */
-        paymentRef.child("saldo").setValue(mySaldo - transferAmount);
-        receivedRef.child("saldo").setValue(recipientSaldo + transferAmount);
-
-        /**
-         * add new transaction record for payment and receiving
-         */
-        String idPayment = paymentRef.push().getKey();
-        paymentRef.child("payments").child(idPayment).setValue(new Transaction(
-                transferAmount,
-                recipientPhone,
-                dateString
-        ));
-
-        String idReceived = receivedRef.push().getKey();
-        receivedRef.child("received").child(idReceived).setValue(new Transaction(
-                transferAmount,
-                myPhone,
-                dateString
-        ));
-
-
-        return true;
     }
 
     private void initWidgets() {
@@ -180,7 +138,6 @@ public class PaymentActivity extends AppCompatActivity {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         recipientId = dataSnapshot.getKey();
-                        recipientPhone = dataSnapshot.child("phone").getValue().toString();
                         recipientSaldo = Long.valueOf(dataSnapshot.child("saldo").getValue().toString());
 
                         String name = dataSnapshot.child("name").getValue().toString();
@@ -190,7 +147,6 @@ public class PaymentActivity extends AppCompatActivity {
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         recipientId = dataSnapshot.getKey();
-                        recipientPhone = dataSnapshot.child("phone").getValue().toString();
                         recipientSaldo = Long.valueOf(dataSnapshot.child("saldo").getValue().toString());
 
                         String name = dataSnapshot.child("name").getValue().toString();

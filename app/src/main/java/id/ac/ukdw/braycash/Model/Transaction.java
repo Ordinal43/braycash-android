@@ -1,6 +1,4 @@
-package id.ac.ukdw.braycash.Database;
-
-import java.util.Date;
+package id.ac.ukdw.braycash.Model;
 
 public class Transaction {
     private Long amount;

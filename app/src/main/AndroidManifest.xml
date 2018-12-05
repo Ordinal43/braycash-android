@@ -47,7 +47,7 @@
         <activity android:name=".Home.ConfirmTransferActivity"></activity>
         <activity android:name=".Home.TopupActivity"></activity>
         <activity android:name=".Home.PaymentActivity"></activity>
-
+        <activity android:name=".Home.ConfirmPinActivity"></activity>
         <activity android:name=".Home.TransactionSuccessActivity"></activity>
 
         <activity android:name=".Notif.NotifActivity"></activity>

@@ -24,7 +24,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import id.ac.ukdw.braycash.Database.Transaction;
+import id.ac.ukdw.braycash.Model.Transaction;
 import id.ac.ukdw.braycash.R;
 
 public class ConfirmTransferActivity extends AppCompatActivity {

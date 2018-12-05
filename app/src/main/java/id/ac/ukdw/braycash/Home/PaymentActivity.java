@@ -20,11 +20,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
-import id.ac.ukdw.braycash.Model.Transaction;
 import id.ac.ukdw.braycash.R;
 
 public class PaymentActivity extends AppCompatActivity {
@@ -98,7 +93,7 @@ public class PaymentActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 } else {
 
-                    Intent intent = new Intent(mContext, ConfirmPinActivity.class);
+                    Intent intent = new Intent(mContext, ConfirmPinTransactionActivity.class);
                     intent.putExtra("RECIPIENT_ID", recipientId);
                     intent.putExtra("RECIPIENT_PHONE", recipientPhone);
                     intent.putExtra("MY_SALDO", mySaldo.toString());

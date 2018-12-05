@@ -28,10 +28,10 @@ import id.ac.ukdw.braycash.Login.LoginActivity;
 import id.ac.ukdw.braycash.Model.Transaction;
 import id.ac.ukdw.braycash.R;
 
-public class ConfirmPinActivity extends AppCompatActivity {
-    private static final String TAG = "ConfirmPinActivity";
+public class ConfirmPinTransactionActivity extends AppCompatActivity {
+    private static final String TAG = "ConfirmPinTransactionAc";
 
-    private Context mContext = ConfirmPinActivity.this;
+    private Context mContext = ConfirmPinTransactionActivity.this;
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
@@ -47,17 +47,14 @@ public class ConfirmPinActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_confirmpin);
+        setContentView(R.layout.activity_confirmpin_transfer);
 
         mAuth  = FirebaseAuth.getInstance();
 
         if(mAuth.getCurrentUser() == null) {
             // user is not signed in
-            Log.d(TAG, "onStart: CURRENT USER NULL");
             Intent intent = new Intent(mContext, LoginActivity.class);
-            /**
-             * returns the user to login page
-             */
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
 
         }

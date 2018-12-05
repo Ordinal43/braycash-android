@@ -94,7 +94,7 @@ public class VerifyLoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(mContext, HomeActivity.class);
+                            Intent intent = new Intent(mContext, LoginPinActivity.class);
                             // Erase all previous intents
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);

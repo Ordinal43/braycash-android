@@ -92,7 +92,8 @@ public class LoginPinActivity extends AppCompatActivity {
 
                                 Intent intent = new Intent(mContext, HomeActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra("PIN_CONFIRMED", "confirmed");
+                                intent.putExtra("FROM_LOGIN", "YES");
+                                intent.putExtra("PIN_CONFIRMED", "YES");
                                 startActivity(intent);
 
                             } else {

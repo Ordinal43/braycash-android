@@ -38,8 +38,6 @@ public class HomeActivity extends AppCompatActivity {
     private Context mContext = HomeActivity.this;
     private static final int ACTTIVITY_NUM = 0;
 
-    private String pinConfirmed;
-
     // firebase auth object
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDatabase;
@@ -57,8 +55,7 @@ public class HomeActivity extends AppCompatActivity {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference("users");
 
-        // try to get pinconfirmed from LoginPinActivity
-        pinConfirmed = getIntent().getStringExtra("PIN_CONFIRMED");
+
 
         if(mAuth.getCurrentUser() != null) {
             initImageLoader();
@@ -99,10 +96,15 @@ public class HomeActivity extends AppCompatActivity {
                 }
             });
 
-            if(pinConfirmed == null ) {
-                Intent intent = new Intent(mContext, LoginPinActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+            String pinConfirmed = getIntent().getStringExtra("PIN_CONFIRMED");;
+            String fromLoginPin = getIntent().getStringExtra("FROM_LOGIN");
+            // only run if from LoginPinActivity;
+            if(fromLoginPin != null) {
+                if(pinConfirmed == null ) {
+                    Intent intent = new Intent(mContext, LoginPinActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
             }
         }
     }

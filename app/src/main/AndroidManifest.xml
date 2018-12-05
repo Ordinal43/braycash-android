@@ -41,17 +41,21 @@
         <activity android:name=".Login.VerifyLoginActivity"></activity>
         <activity android:name=".Login.RegisterActivity"></activity>
         <activity android:name=".Login.VerifyRegisterActivity"></activity>
+        <activity android:name=".Login.SetPinActivity"></activity>
+        <activity android:name=".Login.LoginPinActivity"></activity>
 
         <activity android:name=".Home.TransferActivity"></activity>
         <activity android:name=".Home.ConfirmTransferActivity"></activity>
         <activity android:name=".Home.TopupActivity"></activity>
         <activity android:name=".Home.PaymentActivity"></activity>
-
+        <activity android:name=".Home.ConfirmPinTransactionActivity"></activity>
         <activity android:name=".Home.TransactionSuccessActivity"></activity>
 
         <activity android:name=".Notif.NotifActivity"></activity>
         <activity android:name=".Profile.ProfileActivity"></activity>
         <activity android:name=".Profile.AccountSettingsActivity"></activity>
+        <activity android:name=".Profile.ConfirmEditPinActivity"></activity>
+        <activity android:name=".Profile.SetNewPinActivity"></activity>
 
         <activity android:name=".History.HistoryActivity"></activity>
 

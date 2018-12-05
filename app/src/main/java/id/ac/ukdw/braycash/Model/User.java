@@ -1,18 +1,16 @@
-package id.ac.ukdw.braycash.Database;
+package id.ac.ukdw.braycash.Model;
 
 public class User {
     private String name;
     private String phone;
+    private String pin;
     private Long saldo;
     private String profilePhoto;
 
-    public User() {
-
-    }
-
-    public User(String name, String phone, Long saldo, String profilePhoto) {
+    public User(String name, String phone, String pin, Long saldo, String profilePhoto) {
         this.name = name;
         this.phone = phone;
+        this.pin = pin;
         this.saldo = saldo;
         this.profilePhoto = profilePhoto;
     }
@@ -31,6 +29,14 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
     }
 
     public Long getSaldo() {

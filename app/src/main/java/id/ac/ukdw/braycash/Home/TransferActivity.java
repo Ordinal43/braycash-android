@@ -93,6 +93,11 @@ public class TransferActivity extends AppCompatActivity {
                                                     mContext,
                                                     "Not enough balance!",
                                                     Toast.LENGTH_SHORT).show();
+                                        } else if(transferAmountLong > 500000) {
+                                            Toast.makeText(
+                                                    mContext,
+                                                    "Maximum transaction is Rp 500.000",
+                                                    Toast.LENGTH_SHORT).show();
                                         } else {
 
                                             Intent intent = new Intent(mContext, ConfirmTransferActivity.class);

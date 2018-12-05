@@ -26,6 +26,7 @@ import com.google.zxing.BarcodeFormat;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import id.ac.ukdw.braycash.Home.HomeActivity;
 import id.ac.ukdw.braycash.R;
 import id.ac.ukdw.braycash.Utils.BottomNavigationViewHelper;
 import id.ac.ukdw.braycash.Utils.UniversalImageLoader;
@@ -60,7 +61,9 @@ public class ProfileActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(mContext, HomeActivity.class);
+                intent.putExtra("PIN_CONFIRMED", "confirmed");
+                startActivity(intent);
             }
         });
     }

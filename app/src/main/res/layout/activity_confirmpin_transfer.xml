@@ -18,8 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="30sp"
-            android:text="We've sent you a text!"
             android:layout_marginBottom="20dp"
+            android:text="Confirm transaction"
             android:textAlignment="center"/>
 
         <TextView
@@ -27,16 +27,25 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:layout_marginBottom="40dp"
-            android:text="Enter the verification code sent to your number"
+            android:text="Enter your 6 digit PIN"
             android:textAlignment="center"/>
 
-        <EditText
-            android:layout_width="100dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="numberPassword"
-            android:maxLength="6"
-            android:textAlignment="center"
-            android:id="@+id/input_otp"/>
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberPassword"
+                android:textSize="20sp"
+                android:maxLength="6"
+                android:textAlignment="center"
+                android:id="@+id/pinInput"/>
+
+        </LinearLayout>
+
 
 
         <android.support.v7.widget.AppCompatButton
@@ -44,30 +53,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="25dp"
-            android:text="VERIFY"
-            android:id="@+id/btnVerify"
+            android:text="CONFIRM TRANSACTION"
+            android:id="@+id/btnConfirmPin"
             android:padding="12dp"
             android:background="@drawable/white_rounded_button"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Didn't receive any code?"
-            android:textSize="16dp"
-            android:textColor="@color/primary_dark"
-            android:gravity="center"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            android:text="Resend"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:id="@+id/resend_otp"
-            android:textColor="@color/primary_dark"
-            android:gravity="center"/>
     </LinearLayout>
 
     <ProgressBar

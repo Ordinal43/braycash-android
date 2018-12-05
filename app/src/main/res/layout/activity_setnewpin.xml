@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:textSize="30sp"
             android:layout_marginBottom="20dp"
-            android:text="PIN Confirmation"
+            android:text="What's your new pin?"
             android:textAlignment="center"/>
 
         <TextView
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:layout_marginBottom="40dp"
-            android:text="Enter your 6 digit PIN"
+            android:text="Enter 6 digits for your new pin"
             android:textAlignment="center"/>
 
         <LinearLayout
@@ -42,7 +42,7 @@
                 android:textSize="20sp"
                 android:maxLength="6"
                 android:textAlignment="center"
-                android:id="@+id/pinInput"/>
+                android:id="@+id/inputPin"/>
 
         </LinearLayout>
 
@@ -53,8 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="25dp"
-            android:text="CONFIRM"
-            android:id="@+id/btnConfirmPin"
+            android:text="SET NEW PIN CODE"
+            android:id="@+id/btnSetPin"
             android:padding="12dp"
             android:background="@drawable/white_rounded_button"/>
 

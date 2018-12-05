@@ -43,6 +43,7 @@ public class EditProfileFragment extends Fragment {
     private Button changePhoto;
     private EditText editName;
     private TextView editPhone;
+    private Button changePin;
     private ProgressBar mProgressBar;
 
     String profileImgURL;
@@ -66,6 +67,7 @@ public class EditProfileFragment extends Fragment {
         changePhoto = (Button) view.findViewById(R.id.change_profile_photo);
         editName = (EditText) view.findViewById(R.id.display_name);
         editPhone = (TextView) view.findViewById(R.id.phone_number);
+        changePin = (Button) view.findViewById(R.id.change_pin);
         mProgressBar = (ProgressBar) view.findViewById(R.id.profileProgressBar);
         mProgressBar.setVisibility(View.GONE);
 
@@ -95,6 +97,14 @@ public class EditProfileFragment extends Fragment {
                 intent.setType("image/*");
 
                 startActivityForResult(intent, 123);
+            }
+        });
+
+        changePin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ConfirmEditPinActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -152,7 +162,6 @@ public class EditProfileFragment extends Fragment {
         } else {
 
             mProgressBar.setVisibility(View.VISIBLE);
-
             if(isImgSet) {
                 Toast.makeText(mContext, "Saving...", Toast.LENGTH_SHORT).show();
 
@@ -164,17 +173,17 @@ public class EditProfileFragment extends Fragment {
                         newRef.child(mAuth.getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-
                                 userRef.child("profilePhoto").setValue(uri.toString());
                                 saveName();
-
                             }
                         });
                     }
                 });
             } else {
-                getActivity().finish();
+                saveName();
             }
+
+
         }
 
     }

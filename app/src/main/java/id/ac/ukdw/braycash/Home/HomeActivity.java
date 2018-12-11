@@ -96,16 +96,6 @@ public class HomeActivity extends AppCompatActivity {
                 }
             });
 
-            String pinConfirmed = getIntent().getStringExtra("PIN_CONFIRMED");;
-            String fromLoginPin = getIntent().getStringExtra("FROM_LOGIN");
-            // only run if from LoginPinActivity;
-            if(fromLoginPin != null) {
-                if(pinConfirmed == null ) {
-                    Intent intent = new Intent(mContext, LoginPinActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                }
-            }
         }
     }
 

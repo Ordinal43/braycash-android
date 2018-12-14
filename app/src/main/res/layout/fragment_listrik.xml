@@ -57,6 +57,12 @@
 
                     </LinearLayout>
 
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="ADD SOCKET"
+                        android:id="@+id/btnAddSocket"
+                        style="@style/Base.Widget.AppCompat.Button.Colored"/>
 
                 </LinearLayout>
 

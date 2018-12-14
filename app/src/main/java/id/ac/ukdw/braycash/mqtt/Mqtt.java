@@ -1,6 +1,7 @@
 package id.ac.ukdw.braycash.mqtt;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -16,14 +17,15 @@ public class Mqtt {
     private String username;
     private String password;
     MqttAndroidClient client;
+    private String clientId;
 
-    public Mqtt(String username, String password)
+    public Mqtt(String username, String password, String clientId)
     {
         this.username = username;
         this.password = password;
+        this.clientId = clientId;
     }
     public void konek(Context ctx) throws MqttException {
-        String clientId = MqttClient.generateClientId();
         client = new MqttAndroidClient(ctx, "tcp://broker.shiftr.io:1883", clientId);
 
         try {
@@ -31,7 +33,6 @@ public class Mqtt {
             token.setActionCallback(new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    // We are connected
 
                 }
 

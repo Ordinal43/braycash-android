@@ -55,6 +55,8 @@
         <activity android:name=".Home.ConfirmPinTransactionActivity"></activity>
         <activity android:name=".Home.TransactionSuccessActivity"></activity>
 
+        <activity android:name=".Listrik.AddSocketActivity"></activity>
+
         <activity android:name=".Notif.NotifActivity"></activity>
         <activity android:name=".Profile.ProfileActivity"></activity>
         <activity android:name=".Profile.AccountSettingsActivity"></activity>

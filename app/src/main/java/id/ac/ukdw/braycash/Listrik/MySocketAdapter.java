@@ -12,14 +12,13 @@ import java.util.List;
 
 import id.ac.ukdw.braycash.R;
 
-public class ElektronikAdapter extends RecyclerView.Adapter<ElektronikAdapter.ElektronikHolder> {
+public class MySocketAdapter extends RecyclerView.Adapter<MySocketAdapter.ElektronikHolder> {
 
-    private List<Elektronik> listElektronik;
+    private List<Socket> listSocket;
     private Context mContext;
-    private String cobaaaaaa;
 
-    public ElektronikAdapter(List<Elektronik> listElektronik, Context mContext) {
-        this.listElektronik = listElektronik;
+    public MySocketAdapter(List<Socket> listSocket, Context mContext) {
+        this.listSocket = listSocket;
         this.mContext = mContext;
     }
 
@@ -34,16 +33,16 @@ public class ElektronikAdapter extends RecyclerView.Adapter<ElektronikAdapter.El
 
     @Override
     public void onBindViewHolder(@NonNull ElektronikHolder elektronikHolder, int i) {
-        Elektronik elektronik = listElektronik.get(i);
-        elektronikHolder.txtElectronicId.setText(elektronik.getId());
-        elektronikHolder.txtElectronicName.setText(elektronik.getNama());
-        elektronikHolder.txtElectronicWattage.setText(elektronik.getDaya());
-        elektronikHolder.txtElectronicStatus.setText(elektronik.getStatus());
+        Socket socket = listSocket.get(i);
+        elektronikHolder.txtElectronicId.setText(socket.getId());
+        elektronikHolder.txtElectronicName.setText(socket.getNama());
+        elektronikHolder.txtElectronicWattage.setText(socket.getDaya());
+        elektronikHolder.txtElectronicStatus.setText(socket.getStatus());
     }
 
     @Override
     public int getItemCount() {
-        return listElektronik.size();
+        return listSocket.size();
     }
 
     public class ElektronikHolder extends RecyclerView.ViewHolder {

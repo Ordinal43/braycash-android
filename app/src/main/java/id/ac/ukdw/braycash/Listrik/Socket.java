@@ -1,9 +1,9 @@
 package id.ac.ukdw.braycash.Listrik;
 
-public class Elektronik {
+public class Socket {
     private String id, nama, daya, status;
 
-    public Elektronik(String id, String nama, String daya, String status) {
+    public Socket(String id, String nama, String daya, String status) {
         this.id = id;
         this.nama = nama;
         this.daya = daya;

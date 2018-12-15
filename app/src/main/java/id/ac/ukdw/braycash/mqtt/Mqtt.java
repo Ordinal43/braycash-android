@@ -67,7 +67,7 @@ public class Mqtt {
     }
     public void subscribe(String topic)
     {
-
+    //inicoba
         int qos = 1;
         try {
             IMqttToken subToken = client.subscribe(topic, qos);

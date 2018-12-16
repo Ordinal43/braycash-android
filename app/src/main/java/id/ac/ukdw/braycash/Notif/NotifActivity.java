@@ -102,7 +102,7 @@ public class NotifActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(mContext, "Connection error!", Toast.LENGTH_SHORT).show();
             }
         });
 

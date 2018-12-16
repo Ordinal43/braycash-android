@@ -18,7 +18,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="DAYA DIGUNAKAN"
+                android:text="DAYA TOTAL DIGUNAKAN"
                 android:textColor="@color/white"
                 android:id="@+id/txtWatt"/>
 
@@ -57,12 +57,6 @@
 
                     </LinearLayout>
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="ADD SOCKET"
-                        android:id="@+id/btnAddSocket"
-                        style="@style/Base.Widget.AppCompat.Button.Colored"/>
 
                 </LinearLayout>
 
@@ -70,6 +64,14 @@
 
 
         </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Tidak ada socket..."
+            android:gravity="center_horizontal"
+            android:id="@+id/noSocket"/>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"

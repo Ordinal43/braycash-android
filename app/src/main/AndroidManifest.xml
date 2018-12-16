@@ -56,6 +56,7 @@
         <activity android:name=".Home.TransactionSuccessActivity"></activity>
 
         <activity android:name=".Listrik.AddSocketActivity"></activity>
+        <activity android:name=".Listrik.SocketDetailsActivity" />
 
         <activity android:name=".Notif.NotifActivity"></activity>
         <activity android:name=".Profile.ProfileActivity"></activity>
@@ -64,6 +65,8 @@
         <activity android:name=".Profile.SetNewPinActivity"></activity>
 
         <activity android:name=".History.HistoryActivity"></activity>
+
+
         <service android:name="org.eclipse.paho.android.service.MqttService" >
         </service>
     </application>

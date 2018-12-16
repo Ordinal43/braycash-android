@@ -9,21 +9,38 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import id.ac.ukdw.braycash.R;
 
 public class ListrikFragment extends Fragment {
+    private static final String TAG = "ListrikFragment";
+
     private Context mContext;
+    private TextView noSocket;
     private RecyclerView rcyElektronik;
     private MySocketAdapter mySocketAdapter;
-    private Button btnAddSocket;
+
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference myRef;
 
     @Nullable
     @Override
@@ -32,11 +49,16 @@ public class ListrikFragment extends Fragment {
 
         mContext = getActivity();
 
-        btnAddSocket = (Button) view.findViewById(R.id.btnAddSocket);
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference("users/" + mAuth.getUid());
+
+        noSocket = (TextView) view.findViewById(R.id.noSocket);
+        noSocket.setVisibility(View.GONE);
 
         // ============ set up recycler view ===============
         rcyElektronik = (RecyclerView) view.findViewById(R.id.rcyElektronik);
-        List<Socket> listSocket = new ArrayList<Socket>();
+        final List<Socket> listSocket = new ArrayList<Socket>();
         mySocketAdapter = new MySocketAdapter(listSocket, mContext);
 
         RecyclerView.LayoutManager lm = new LinearLayoutManager(mContext);
@@ -44,24 +66,32 @@ public class ListrikFragment extends Fragment {
         rcyElektronik.setItemAnimator(new DefaultItemAnimator());
         rcyElektronik.setAdapter(mySocketAdapter);
 
-        listSocket.add(new Socket("1", "Kulkas", "150", "ON"));
-        listSocket.add(new Socket("2", "Televisi", "100", "ON"));
-        listSocket.add(new Socket("3", "Lampu Kamar", "5", "ON"));
-        listSocket.add(new Socket("4", "Lampu WC", "5", "ON"));
-        listSocket.add(new Socket("5", "Lampu teras", "10", "OFF"));
-        listSocket.add(new Socket("6", "AC", "100", "OFF"));
-        listSocket.add(new Socket("7", "Kipas Angin", "30", "ON"));
+        myRef.child("Device")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        listSocket.clear();
+                        for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-        mySocketAdapter.notifyDataSetChanged();
+                            String id = snapshot.getKey();
+                            String nama = snapshot.child("nama").getValue().toString();
+                            String daya = "0";
+                            String status = snapshot.child("status").getValue().toString();
 
-        btnAddSocket.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, AddSocketActivity.class);
-                startActivity(intent);
-            }
-        });
+                            listSocket.add(new Socket(id, nama, daya, status));
+                        }
 
+                        if(listSocket.isEmpty()) {
+                            noSocket.setVisibility(View.VISIBLE);
+                        }
+                        mySocketAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toast.makeText(mContext, "Connection error!", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         return view;
     }

@@ -2,4 +2,9 @@
     <string name="app_name">BrayCash</string>
     <string name="edit_profile_fragment">Edit profile</string>
     <string name="sign_out_fragment">Sign out</string>
+
+    <string-array name="action">
+        <item>on</item>
+        <item>off</item>
+    </string-array>
 </resources>

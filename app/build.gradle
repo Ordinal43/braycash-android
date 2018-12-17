@@ -62,6 +62,9 @@ dependencies {
 
     //pin
     implementation 'com.github.thealeksandr:PFLockScreen-Android:1.0.0-beta3'
+
+    //GraphView
+    implementation 'com.jjoe64:graphview:4.2.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

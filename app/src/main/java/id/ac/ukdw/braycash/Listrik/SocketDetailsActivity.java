@@ -26,6 +26,7 @@ public class SocketDetailsActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference deviceRef;
 
+    private ImageView backBtn;
     private TextView socketName;
     private TextView socketId;
 
@@ -42,9 +43,16 @@ public class SocketDetailsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 
+        backBtn = (ImageView) findViewById(R.id.backArrow);
         socketName = (TextView) findViewById(R.id.socketName);
         socketId = (TextView) findViewById(R.id.socketId);
 
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         if(getIntent().hasExtra("SOCKET_ID")) {
             String id = getIntent().getStringExtra("SOCKET_ID");
             socketId.setText("ID: " + id);

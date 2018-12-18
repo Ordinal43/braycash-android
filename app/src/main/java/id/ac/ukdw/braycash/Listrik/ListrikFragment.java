@@ -34,7 +34,7 @@ public class ListrikFragment extends Fragment {
     private static final String TAG = "ListrikFragment";
 
     private Context mContext;
-    private TextView noSocket;
+    private TextView amountKwh, noSocket;
     private RecyclerView rcyElektronik;
     private MySocketAdapter mySocketAdapter;
 
@@ -53,6 +53,7 @@ public class ListrikFragment extends Fragment {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference("users/" + mAuth.getUid());
 
+        amountKwh = (TextView) view.findViewById(R.id.amountKwh);
         noSocket = (TextView) view.findViewById(R.id.noSocket);
         noSocket.setVisibility(View.GONE);
 
@@ -71,15 +72,22 @@ public class ListrikFragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         listSocket.clear();
+                        Double kwhTotal = 0.0;
                         for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                             String id = snapshot.getKey();
                             String nama = snapshot.child("nama").getValue().toString();
-                            String daya = "0";
+                            String kwh = snapshot.child("kwh").getValue().toString();
+                            Double kwhD = Double.parseDouble(kwh);
+
+                            kwhTotal += kwhD;
+
                             String status = snapshot.child("status").getValue().toString();
 
-                            listSocket.add(new Socket(id, nama, daya, status));
+                            listSocket.add(new Socket(id, nama, kwh, status));
                         }
+                        amountKwh.setText(kwhTotal.toString());
+
 
                         if(listSocket.isEmpty()) {
                             noSocket.setVisibility(View.VISIBLE);
